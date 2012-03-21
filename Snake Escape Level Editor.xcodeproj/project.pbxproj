@@ -287,7 +287,7 @@
 		888033A814ABAC9F00B0B28B /* schlangeflug-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schlangeflug-hd.png"; sourceTree = "<group>"; };
 		888033AB14ABACBA00B0B28B /* schlangerundneu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schlangerundneu.png; sourceTree = "<group>"; };
 		888033AD14ABACC300B0B28B /* busch1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = busch1.png; sourceTree = "<group>"; };
-		88DDEC4B14AAA6AD0073E7ED /* SnakeEscapeLevelEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnakeEscapeLevelEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88DDEC4B14AAA6AD0073E7ED /* SnakeEscapeLevelEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SnakeEscapeLevelEditor.app; path = "Snake Escape Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88DDEC4F14AAA6AD0073E7ED /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		88DDEC5114AAA6AD0073E7ED /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		88DDEC5314AAA6AD0073E7ED /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -1596,7 +1596,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1612,7 +1612,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = macosx;
 			};
@@ -1628,8 +1628,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SnakeEscapeLevelEditor/Prefix.pch;
 				INFOPLIST_FILE = SnakeEscapeLevelEditor/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "Snake Escape Level Editor";
+				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1644,8 +1646,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SnakeEscapeLevelEditor/Prefix.pch;
 				INFOPLIST_FILE = SnakeEscapeLevelEditor/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "Snake Escape Level Editor";
+				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
