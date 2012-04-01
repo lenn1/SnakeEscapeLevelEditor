@@ -313,7 +313,7 @@
         }
         if(ast.tag == 5) // AstHindernis
         {
-            [implementationFile appendString:[NSString stringWithFormat:@"\tAstHindernis* ast%d = [[AstHindernis alloc]init];\n",AstCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tAstHindernis* ast%d = [[AstHindernis alloc]initWithWorld:world];\n",AstCounter]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tast%d.position = ccp(%f, %f);\n",AstCounter,ast.position.x,ast.position.y]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tast%d.rotation = %f;\n\n",AstCounter,ast.rotation]];        
             AstCounter++;
