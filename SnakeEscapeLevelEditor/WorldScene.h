@@ -26,8 +26,6 @@
     NSString *levelBreite;
     id<WorldSceneDelegate>delegate;
     NSMutableArray* astLabels;
-    
-    
 }
 -(void)addAstNormal;
 -(void)addVerkohlterAst;
@@ -36,6 +34,15 @@
 -(void)addPortalEntry;
 -(void)addAstHindernis;
 -(void)addAstSchalter;
+-(void)addRutschigerAst;
+-(void)addBaumharz;
+-(void)addWasserfall;
+-(void)addStein;
+-(void)addVogel;
+-(void)addFeuer;
+-(void)addSpinne;
+-(void)addAffe;
+-(void)addAstKatapult;
 -(void)toggleHilfslinien;
 -(void)generieren;
 -(void)AstLabelsgenerieren;

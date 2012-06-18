@@ -25,12 +25,22 @@
 	MacGLView	*glView_;
     WorldScene* worldScene;
     NSButton *addAstSchalter;
+    NSButton *addWasserfall;
 }
 
 @property (assign) IBOutlet NSWindow	*window;
 @property (assign) IBOutlet MacGLView	*glView;
 
 - (IBAction)RotationChange:(id)sender;
+- (IBAction)addRutschigerAst:(id)sender;
+- (IBAction)addBaumharz:(id)sender;
+- (IBAction)addWasserfall:(id)sender;
+- (IBAction)addStein:(id)sender;
+- (IBAction)addVogel:(id)sender;
+- (IBAction)addFeuer:(id)sender;
+- (IBAction)addSpinne:(id)sender;
+- (IBAction)addAffe:(id)sender;
+- (IBAction)addAstKatapult:(id)sender;
 -(IBAction)addAstNormal:(id)sender;
 -(IBAction)addVerkohlterAst:(id)sender;
 -(IBAction)addStacheligerAst:(id)sender;

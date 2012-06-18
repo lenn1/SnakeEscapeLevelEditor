@@ -61,6 +61,51 @@
 {   
     [worldScene addAstSchalter];
 }
+- (IBAction)addRutschigerAst:(id)sender 
+{
+    [worldScene addRutschigerAst];
+}
+
+- (IBAction)addBaumharz:(id)sender 
+{
+    [worldScene addBaumharz];
+}
+
+- (IBAction)addWasserfall:(id)sender 
+{
+    [worldScene addWasserfall];
+}
+
+- (IBAction)addStein:(id)sender 
+{
+    [worldScene addStein];
+}
+
+- (IBAction)addVogel:(id)sender 
+{
+    [worldScene addVogel];
+}
+
+- (IBAction)addFeuer:(id)sender 
+{
+    [worldScene addFeuer];
+}
+
+- (IBAction)addSpinne:(id)sender 
+{
+    [worldScene addSpinne];
+}
+
+- (IBAction)addAffe:(id)sender 
+{
+    [worldScene addAffe];
+}
+
+- (IBAction)addAstKatapult:(id)sender 
+{
+    [worldScene addAstKatapult];
+}
+
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *) theApplication
 {
 	return YES;
@@ -168,6 +213,7 @@
     worldScene.currentSprite.rotation = [sender floatValue];
     [rotationTextfield setFloatValue:worldScene.currentSprite.rotation];
 }
+
 
 
 

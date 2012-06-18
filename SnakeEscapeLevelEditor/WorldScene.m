@@ -95,6 +95,24 @@
     [self AstLabelsgenerieren];
 
 }
+-(void)addBaumharz
+{
+    CCSprite* ast = [CCSprite spriteWithFile:@"harz.png"];
+    ast.position = ccp(100,100);
+    ast.tag = 9;
+    [self addChild:ast];
+    [AstSprites addObject:ast];
+    [self AstLabelsgenerieren];
+}
+-(void)addRutschigerAst
+{
+    CCSprite* ast = [CCSprite spriteWithFile:@"rutschigerAst.png"];
+    ast.position = ccp(100,100);
+    ast.tag = 7;
+    [self addChild:ast];
+    [AstSprites addObject:ast];
+    [self AstLabelsgenerieren];
+}
 -(void)addStacheligerAst
 {
     CCSprite* ast = [CCSprite spriteWithFile:@"StachelAst.png"];
@@ -139,6 +157,63 @@
     [self AstLabelsgenerieren];
 
 }
+-(void)addAstKatapult
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AstKatapult.plist"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AstKatapult.png"];
+    [self addChild:spriteSheet];
+    CCSprite* ast = [CCSprite spriteWithSpriteFrameName:@"astkatapult1"];
+    [self addChild:ast];
+    ast.position = ccp(100,100);
+    ast.tag = 8;
+    [AstSprites addObject:ast];
+    [self AstLabelsgenerieren];
+
+}
+-(void)addAffe
+{    
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"affe.plist"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"affe.png"];
+    [self addChild:spriteSheet];
+    CCSprite* affe = [CCSprite spriteWithSpriteFrameName:@"affe0"];
+    [self addChild:affe];
+    affe.tag = 10;
+    
+    affe.position = ccp(100,100);
+    [AstSprites addObject:affe];
+    [self AstLabelsgenerieren];
+    
+}
+-(void)addSpinne
+{
+
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"spinne.plist"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"spinne.png"];
+    [self addChild:spriteSheet];
+    CCSprite* spinne = [CCSprite spriteWithSpriteFrameName:@"spinne0"];
+    [self addChild:spinne];
+    spinne.tag = 11;
+    
+    spinne.position = ccp(100,100);
+    [AstSprites addObject:spinne];
+    [self AstLabelsgenerieren];
+
+    
+}
+-(void)addVogel
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"vogel.plist"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"vogel.png"];
+    [self addChild:spriteSheet];
+    CCSprite* vogel = [CCSprite spriteWithSpriteFrameName:@"vogel0"];
+    [self addChild:vogel];
+    vogel.tag = 12;
+    
+    vogel.position = ccp(250,280);
+    [AstSprites addObject:vogel];
+    [self AstLabelsgenerieren];
+}
+
 -(void)addAstSchalter
 {
     CCSprite* ast = [CCSprite spriteWithFile:@"AstSchalter.png" rect:CGRectMake(1, 1, 50, 95)];
@@ -155,7 +230,24 @@
     [self AstLabelsgenerieren];
 
 }
-
+-(void)addFeuer
+{
+    CCSprite* feuer = [CCSprite spriteWithFile:@"feuer.png"];
+    feuer.position = ccp(100,100);
+    feuer.tag = 13;
+    [self addChild:feuer];
+    [AstSprites addObject:feuer];
+    [self AstLabelsgenerieren];
+}
+-(void)addWasserfall
+{
+    CCSprite* wasserfall = [CCSprite spriteWithFile:@"wasserfall.png"];
+    wasserfall.position = ccp(100,100);
+    wasserfall.tag = 14;
+    [self addChild:wasserfall];
+    [AstSprites addObject:wasserfall];
+    [self AstLabelsgenerieren];
+}
 -(BOOL)ccMouseDown:(NSEvent *)event
 {
     CGPoint clickedAt;
@@ -220,7 +312,7 @@
     int AstCounter = 1;
     for (CCSprite* ast in AstSprites)
     {
-        if(ast.tag != 0 && ast.tag !=6) // PORTALENTRY ausschliessen
+        if(ast.tag < 9 && ast.tag != 0) // PORTALENTRY,Baumharz,Tier usw. ausschliessen
         {
             CCLabelTTF* astLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"ast%d",AstCounter] fontName:@"Helvetica" fontSize:12];
             [self addChild:astLabel];
@@ -229,18 +321,7 @@
             AstCounter++;
         }
     }
-    for (CCSprite* ast in AstSprites)
-    {
-        if(ast.tag == 6) // PORTALENTRY ausschliessen
-        {
-            CCLabelTTF* astLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"ast%d",AstCounter] fontName:@"Helvetica" fontSize:12];
-            [self addChild:astLabel];
-            astLabel.position = ccp(ast.position.x,ast.position.y+20);
-            [astLabels addObject:astLabel];
-            AstCounter++;
-        }
-    }
-
+    
 }
 -(void)generieren
 {
@@ -269,6 +350,7 @@
     [implementationFile appendString:[NSString stringWithFormat:@"\tself.levelTimeout = %@;\n",levelZeit]];
 
     int AstCounter = 0 ;
+    int itemCounter = 0;
     for(CCSprite* ast in AstSprites)
     {
         
@@ -319,6 +401,79 @@
             AstCounter++;
 
         }
+        if(ast.tag == 7) // Rutschiger Ast
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tRutschiger_Ast* ast%d = [[Rutschiger_Ast alloc]init];\n",AstCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tast%d.position = ccp(%f, %f);\n",AstCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tast%d.rotation = %f;\n\n",AstCounter,ast.rotation]];        
+            AstCounter++;
+            
+        }
+        if(ast.tag == 8) // AstKatapult
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tAstKatapult* ast%d = [[AstKatapult alloc]init];\n",AstCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tast%d.position = ccp(%f, %f);\n",AstCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tast%d.rotation = %f;\n\n",AstCounter,ast.rotation]];        
+            AstCounter++;
+            
+        }
+        if(ast.tag == 9) // Baumharz
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tBaumharz* harz%d = [[Baumharz alloc]initWithWorld:world];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tharz%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tharz%d.rotation = %f;\n",itemCounter,ast.rotation]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:harz%d];\n\n",itemCounter]];   
+            itemCounter++;
+        }
+        
+        if(ast.tag == 10) // Affe
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tAffe* affe%d = [[Affe alloc]initWithWorld:world AndDelegate:self];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\taffe%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addToFrameUpdate:affe%d,nil];\n",itemCounter]];        
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:affe%d];\n\n",itemCounter]];  
+            itemCounter++;
+        }
+        
+        if(ast.tag == 11) // Spinne
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tSpinne* spinne%d = [[Spinne alloc]initWithWorld:world];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[spinne%d setAnkerPosition:ccp(%f, 480.0)];\n",itemCounter,ast.position.x]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tspinne%d.joint->SetLimits(-200/PTM_RATIO, -100.0/PTM_RATIO);\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addToFrameUpdate:spinne%d,nil];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:spinne%d];\n\n",itemCounter]];  
+            itemCounter++;
+        }
+        
+        if(ast.tag == 12) // Vogel
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tVogel* vogel%d = [[Vogel alloc]init];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tvogel%d.position = ccp(%f,%f);\n",itemCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tvogel%d.maxLeft = 40;\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tvogel%d.maxRight = 450;\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tvogel%d.speed = 150;\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tvogel%d.abwurfPosition = 260;\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tvogel%d.delegate = self;\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addToFrameUpdate:vogel%d,nil];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:vogel%d];\n\n",itemCounter]];  
+            itemCounter++;
+        }
+        
+        if(ast.tag == 13) // Feuer
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tFeuer* feuer%d = [[Feuer alloc]initWithWorld:world];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tfeuer%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:feuer%d];\n\n",itemCounter]];        
+            itemCounter++;
+        }
+        
+        if(ast.tag == 14) // Wasserfall
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tWasserfall* wasserfall%d = [[Wasserfall alloc]initWithWorld:world];\n",itemCounter]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\twasserfall%d.position = ccp(%f, 320);\n",itemCounter,ast.position.x]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:wasserfall%d];\n\n",itemCounter]];        
+            itemCounter++;
+        }
         
     }
     
@@ -326,7 +481,6 @@
     {
         if(ast.tag == 6)
         {
-        
             NSValue* positionOffset = [(NSArray*)ast.userData objectAtIndex:0];
             NSNumber* rotationOffset = [(NSArray*)ast.userData objectAtIndex:1];
             NSString* target = [(NSArray*)ast.userData objectAtIndex:2];
@@ -339,7 +493,7 @@
         }
     }
     [implementationFile appendString:@"\t[astLayer addAeste:"];
-    for(int i=1;i<AstSprites.count;i++)
+    for(int i=1;i<AstCounter;i++)
     {
         [implementationFile appendString:[NSString stringWithFormat:@"ast%d,",i]];
     }
