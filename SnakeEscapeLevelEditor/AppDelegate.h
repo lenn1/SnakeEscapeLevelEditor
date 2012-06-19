@@ -16,11 +16,16 @@
     IBOutlet NSTextField *nextLevelNameTextField;
     IBOutlet NSTextField *levelBreiteTextField;
     IBOutlet NSTextField *rotationTextfield;
+    IBOutlet NSTextField *scaleTextfield;
     IBOutlet NSStepper *stepper;
     IBOutlet NSTextField *AstSchalterPositionX;
     IBOutlet NSTextField *AstSchalterPositionY;
     IBOutlet NSTextField *AstSchalterRotation;
     IBOutlet NSPopUpButton *AstSchalterTarget;
+    IBOutlet NSComboBox *buschbox;
+    IBOutlet NSComboBox *baumkronenBox;
+    IBOutlet NSComboBox *baumBox;
+    IBOutlet NSStepper *scaleStepper;
 	NSWindow	*window_;
 	MacGLView	*glView_;
     WorldScene* worldScene;
@@ -31,11 +36,16 @@
 @property (assign) IBOutlet NSWindow	*window;
 @property (assign) IBOutlet MacGLView	*glView;
 
+- (IBAction)BaumSpriteChanged:(id)sender;
+- (IBAction)BaumKronenSpriteChanged:(id)sender;
+
+- (IBAction)addBaum:(id)sender;
 - (IBAction)RotationChange:(id)sender;
+- (IBAction)ScaleChange:(id)sender;
 - (IBAction)addRutschigerAst:(id)sender;
 - (IBAction)addBaumharz:(id)sender;
 - (IBAction)addWasserfall:(id)sender;
-- (IBAction)addStein:(id)sender;
+- (IBAction)addBaumkrone:(id)sender;
 - (IBAction)addVogel:(id)sender;
 - (IBAction)addFeuer:(id)sender;
 - (IBAction)addSpinne:(id)sender;
@@ -49,5 +59,6 @@
 -(IBAction)toggleHilfsLinien:(id)sender;
 - (IBAction)generieren:(id)sender;
 - (IBAction)astLoeschen:(id)sender;
+- (IBAction)hintergrundwechseln:(id)sender;
 -(void)TextEdited;
 @end

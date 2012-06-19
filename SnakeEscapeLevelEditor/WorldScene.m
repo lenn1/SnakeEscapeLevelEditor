@@ -20,10 +20,13 @@
 {
 	if( (self=[super init])) 
     {
-		CCSprite* bg = [CCSprite spriteWithFile:@"busch1.png"];
+        background = [CCLayer node];
+        [self addChild:background];
+        backgroundImageName = @"busch1.png";
+		bg = [CCSprite spriteWithFile:backgroundImageName];
         CGSize size = [(CCDirectorMac*)[CCDirector sharedDirector] winSize];
         bg.position = ccp(size.width/2,size.height/2);
-        [self addChild:bg];
+        [background addChild:bg];
         HilfslinienSprites = [[NSMutableArray alloc]init];
         
         
@@ -64,6 +67,33 @@
         
     }
 	return self;
+}
+-(void)changeBackGroundTo:(int)buschNummer
+{
+    backgroundImageName = [NSString stringWithFormat:@"busch%d.png",buschNummer];
+    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:backgroundImageName];
+    [bg setTexture:tex];
+}
+-(void)addStein{};
+-(void)addBaum
+{
+    CCSprite* baum = [CCSprite spriteWithFile:@"baum1.png"];
+    baum.position = ccp(100,100);
+    baum.tag = 15;
+    baum.userData = @"baum1.png";
+    [background addChild:baum];
+    [AstSprites addObject:baum];
+    [self AstLabelsgenerieren];
+}
+-(void)addBaumkrone
+{
+    CCSprite* baum = [CCSprite spriteWithFile:@"baumkrone_1.png"];
+    baum.position = ccp(480,200);
+    baum.tag = 16;
+    baum.userData = @"baumkrone_1.png";
+    [background addChild:baum];
+    [AstSprites addObject:baum];
+    [self AstLabelsgenerieren];
 }
 
 -(void)addAstNormal;
@@ -261,11 +291,11 @@
             currentSprite = ast;
             if(ast)
                 selectedRahmen.position = ast.position;
-            [self.delegate currentSpriteChanged];
         }
             
     }
-    
+    [self.delegate currentSpriteChanged];
+
     return YES;
 }
 
@@ -338,7 +368,7 @@
     [implementationFile appendFormat:@"#import \"%@.h\"\n\n",nextLevelName];    
     [implementationFile appendString:[NSString stringWithFormat:@"@implementation %@\n",levelName]];
     [implementationFile appendString:@"+(CCScene*)scene\n{\n"];
-    [implementationFile appendString:[NSString stringWithFormat:@"\treturn [[%@ alloc]initWithBackGroundImageFile:@\"%@.png\" AndLevelWidth:%@];\n",levelName,levelName,levelBreite]];
+    [implementationFile appendString:[NSString stringWithFormat:@"\treturn [[%@ alloc]initWithBackGroundImageFile:@\"%@\" AndLevelWidth:%@];\n",levelName,backgroundImageName,levelBreite]];
     [implementationFile appendString:@"}\n"];
     [implementationFile appendString:@"+(NSArray *)getNeededHighScores\n{\n"];
     [implementationFile appendString:@"\tNSNumber* oneStar = [NSNumber numberWithInt:5000];\n"];
@@ -466,7 +496,6 @@
             [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:feuer%d];\n\n",itemCounter]];        
             itemCounter++;
         }
-        
         if(ast.tag == 14) // Wasserfall
         {
             [implementationFile appendString:[NSString stringWithFormat:@"\tWasserfall* wasserfall%d = [[Wasserfall alloc]initWithWorld:world];\n",itemCounter]];
@@ -474,6 +503,25 @@
             [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:wasserfall%d];\n\n",itemCounter]];        
             itemCounter++;
         }
+        if(ast.tag == 15) // Baum
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tCCSprite* baum%d = [CCSprite spriteWithFile:@\"%@\"];\n",itemCounter,(NSString*)ast.userData]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tbaum%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tbaum%d.scale = %f;\n",itemCounter,ast.scale]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tbaum%d.rotation = %f;\n",itemCounter,ast.rotation]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[backgroundLayer addChild:baum%d];\n\n",itemCounter]];        
+            itemCounter++;
+        }
+        if(ast.tag == 16) // Baumkrone
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tCCSprite* baumkrone%d = [CCSprite spriteWithFile:@\"%@\"];\n",itemCounter,(NSString*)ast.userData]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tbaumkrone%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tbaumkrone%d.scale = %f;\n",itemCounter,ast.scale]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tbaumkrone%d.rotation = %f;\n",itemCounter,ast.rotation]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[backgroundLayer addChild:baumkrone%d];\n\n",itemCounter]];        
+            itemCounter++;
+        }
+
         
     }
     

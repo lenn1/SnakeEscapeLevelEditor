@@ -26,12 +26,16 @@
     NSString *levelBreite;
     id<WorldSceneDelegate>delegate;
     NSMutableArray* astLabels;
+    CCSprite* bg;
+    NSString* backgroundImageName;
+    CCLayer* background;
 }
 -(void)addAstNormal;
 -(void)addVerkohlterAst;
 -(void)addStacheligerAst;
 -(void)addPortalExit;
 -(void)addPortalEntry;
+-(void)addBaumkrone;
 -(void)addAstHindernis;
 -(void)addAstSchalter;
 -(void)addRutschigerAst;
@@ -41,11 +45,13 @@
 -(void)addVogel;
 -(void)addFeuer;
 -(void)addSpinne;
+-(void)addBaum;
 -(void)addAffe;
 -(void)addAstKatapult;
 -(void)toggleHilfslinien;
 -(void)generieren;
 -(void)AstLabelsgenerieren;
+-(void)changeBackGroundTo:(int)buschNummer;
 @property (assign)id <WorldSceneDelegate>delegate;
 @property(assign)CCSprite* currentSprite;
 @property(assign)NSMutableArray* AstSprites;

@@ -76,9 +76,9 @@
     [worldScene addWasserfall];
 }
 
-- (IBAction)addStein:(id)sender 
+- (IBAction)addBaumkrone:(id)sender 
 {
-    [worldScene addStein];
+    [worldScene addBaumkrone];
 }
 
 - (IBAction)addVogel:(id)sender 
@@ -129,11 +129,16 @@
 {
     if(worldScene.currentSprite.tag > 1)
     {
-        [worldScene removeChild:worldScene.currentSprite cleanup:YES];
+        [worldScene.currentSprite.parent removeChild:worldScene.currentSprite cleanup:YES];
         [[worldScene AstSprites]removeObject:worldScene.currentSprite];
         [worldScene AstLabelsgenerieren];
         [[worldScene selectedRahmen]setPosition:ccp(-1000,-2000)];
     }
+}
+
+- (IBAction)hintergrundwechseln:(id)sender 
+{
+    [worldScene changeBackGroundTo:[buschbox indexOfSelectedItem]+1];
 }
 - (void)dealloc
 {
@@ -157,10 +162,7 @@
             NSString* target = [[AstSchalterTarget selectedItem] title];
             [(NSMutableArray*)worldScene.currentSprite.userData replaceObjectAtIndex:2 withObject:target];
         }
-        
-
-        
-        
+ 
     }
 }
 -(void)currentSpriteChanged
@@ -205,13 +207,68 @@
         AstSchalterTarget.stringValue = @"";
         AstSchalterPositionY.floatValue = 0;
         AstSchalterRotation.floatValue = 0;
+        
+        [baumBox setEnabled:NO];
+        [baumkronenBox setEnabled:NO];
+        [scaleStepper setEnabled:NO];
+        scaleTextfield.stringValue = @"";
+    }
+    
+    
+    if(worldScene.currentSprite.tag == 15)  // BAUM 
+    {
+        [baumBox setEnabled:YES];
+        [scaleStepper setEnabled:YES];
+        
+        [scaleTextfield setFloatValue:worldScene.currentSprite.scale];
+
+    }
+    if(worldScene.currentSprite.tag == 16)  // BAUMKRONE
+    {
+        [baumkronenBox setEnabled:YES];
+        [scaleStepper setEnabled:YES];
+        [scaleTextfield setFloatValue:worldScene.currentSprite.scale];
+
+        
     }
     
 }
+- (IBAction)BaumSpriteChanged:(id)sender 
+{
+    NSString* baumImageName = [NSString stringWithFormat:@"baum%d.png",[baumBox indexOfSelectedItem]+1];
+    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:baumImageName];
+    [worldScene.currentSprite setTexture:tex];
+    worldScene.currentSprite.userData = baumImageName;
+    baumBox.stringValue = baumImageName;
+}
+
+- (IBAction)BaumKronenSpriteChanged:(id)sender 
+{
+    NSString* baumKronenImageName = [NSString stringWithFormat:@"baumkrone_%d.png",[baumkronenBox indexOfSelectedItem]+1];
+    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:baumKronenImageName];
+    [worldScene.currentSprite setTexture:tex];
+    
+    worldScene.currentSprite.userData = baumKronenImageName;
+    baumkronenBox.stringValue = baumKronenImageName;
+
+}
+
+- (IBAction)addBaum:(id)sender 
+{
+    [worldScene addBaum];
+}
+
 - (IBAction)RotationChange:(id)sender 
 {
     worldScene.currentSprite.rotation = [sender floatValue];
     [rotationTextfield setFloatValue:worldScene.currentSprite.rotation];
+}
+
+- (IBAction)ScaleChange:(id)sender 
+{
+    worldScene.currentSprite.scale = [sender floatValue]/100;
+    [scaleTextfield setFloatValue:worldScene.currentSprite.scale];
+
 }
 
 
