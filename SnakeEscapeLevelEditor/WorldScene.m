@@ -562,7 +562,7 @@
     [savePanel setNameFieldStringValue:[NSString stringWithFormat:@"%@",levelName]];
     [savePanel runModal];
     
-    NSURL* implementationURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@.m",[savePanel URL]]];
+    NSURL* implementationURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@.mm",[savePanel URL]]];
     NSURL* headerURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@.h",[savePanel URL]]];
 
     [implementationFile writeToURL:implementationURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
