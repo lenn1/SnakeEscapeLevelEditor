@@ -133,6 +133,8 @@
         [[worldScene AstSprites]removeObject:worldScene.currentSprite];
         [worldScene AstLabelsgenerieren];
         [[worldScene selectedRahmen]setPosition:ccp(-1000,-2000)];
+        worldScene.currentSprite = nil;
+        [self currentSpriteChanged];
     }
 }
 
@@ -235,8 +237,8 @@
 }
 - (IBAction)BaumSpriteChanged:(id)sender 
 {
-    NSString* baumImageName = [NSString stringWithFormat:@"baum%d.png",[baumBox indexOfSelectedItem]+1];
-    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:baumImageName];
+    NSString* baumImageName = [NSString stringWithFormat:@"baum%d",[baumBox indexOfSelectedItem]+1];
+    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:[NSString stringWithFormat:@"%@.png",baumImageName]];
     [worldScene.currentSprite setTexture:tex];
     worldScene.currentSprite.userData = baumImageName;
     baumBox.stringValue = baumImageName;
@@ -244,8 +246,8 @@
 
 - (IBAction)BaumKronenSpriteChanged:(id)sender 
 {
-    NSString* baumKronenImageName = [NSString stringWithFormat:@"baumkrone_%d.png",[baumkronenBox indexOfSelectedItem]+1];
-    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:baumKronenImageName];
+    NSString* baumKronenImageName = [NSString stringWithFormat:@"baumkrone_%d",[baumkronenBox indexOfSelectedItem]+1];
+    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:[NSString stringWithFormat:@"%@.png",baumKronenImageName]];
     [worldScene.currentSprite setTexture:tex];
     
     worldScene.currentSprite.userData = baumKronenImageName;
