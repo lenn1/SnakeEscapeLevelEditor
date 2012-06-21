@@ -31,6 +31,7 @@
     WorldScene* worldScene;
     NSButton *addAstSchalter;
     NSButton *addWasserfall;
+    NSButton *addStein;
 }
 
 @property (assign) IBOutlet NSWindow	*window;
@@ -44,6 +45,7 @@
 - (IBAction)ScaleChange:(id)sender;
 - (IBAction)addRutschigerAst:(id)sender;
 - (IBAction)addBaumharz:(id)sender;
+- (IBAction)addStein:(id)sender;
 - (IBAction)addWasserfall:(id)sender;
 - (IBAction)addBaumkrone:(id)sender;
 - (IBAction)addVogel:(id)sender;

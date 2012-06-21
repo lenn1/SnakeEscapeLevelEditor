@@ -74,7 +74,17 @@
     CCTexture2D *tex = [[CCTextureCache sharedTextureCache] addImage:backgroundImageName];
     [bg setTexture:tex];
 }
--(void)addStein{};
+-(void)addStein
+{
+    CCSprite* stein = [CCSprite spriteWithFile:@"stein1.png"];
+    stein.position = ccp(100,100);
+    stein.tag = 17;
+    int steinnr = 1;
+    stein.userData = [NSNumber numberWithInt:steinnr];
+    [background addChild:stein];
+    [AstSprites addObject:stein];
+    [self AstLabelsgenerieren];
+}
 -(void)addBaum
 {
     CCSprite* baum = [CCSprite spriteWithFile:@"baum1.png"];
@@ -143,6 +153,8 @@
     [AstSprites addObject:ast];
     [self AstLabelsgenerieren];
 }
+
+
 -(void)addStacheligerAst
 {
     CCSprite* ast = [CCSprite spriteWithFile:@"StachelAst.png"];
@@ -523,6 +535,15 @@
             itemCounter++;
         }
 
+        if(ast.tag == 17) // Stein
+        {
+            [implementationFile appendString:[NSString stringWithFormat:@"\tStein* stein%d = [[Stein alloc]initWithWorld:world AndStein:%d];\n",itemCounter,[(NSNumber*)ast.userData intValue]]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tstein%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tstein%d.scale = %f;\n",itemCounter,ast.scale]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tstein%d.rotation = %f;\n",itemCounter,ast.rotation]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\t[self addChild:stein%d];\n\n",itemCounter]];        
+            itemCounter++;
+        }
         
     }
     

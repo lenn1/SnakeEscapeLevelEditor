@@ -71,6 +71,11 @@
     [worldScene addBaumharz];
 }
 
+- (IBAction)addStein:(id)sender 
+{
+    [worldScene addStein];
+
+}
 - (IBAction)addWasserfall:(id)sender 
 {
     [worldScene addWasserfall];
