@@ -517,17 +517,16 @@
         }
         if(ast.tag == 15) // Baum
         {
-            [implementationFile appendString:[NSString stringWithFormat:@"\tCCSprite* baum%d = [CCSprite spriteWithSpriteFrame:@\"%@\"];\n",itemCounter,(NSString*)ast.userData]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tCCSprite* baum%d = [CCSprite spriteWithSpriteFrameName:@\"%@\"];\n",itemCounter,(NSString*)ast.userData]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tbaum%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tbaum%d.scale = %f;\n",itemCounter,ast.scale]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tbaum%d.rotation = %f;\n",itemCounter,ast.rotation]];
             [implementationFile appendString:[NSString stringWithFormat:@"\t[backgroundLayer addChild:baum%d];\n\n",itemCounter]];        
             itemCounter++;
         }
-      
         if(ast.tag == 16) // Baumkrone
         {
-            [implementationFile appendString:[NSString stringWithFormat:@"\tCCSprite* baumkrone%d = [CCSprite spriteWithFile:@\"%@\"];\n",itemCounter,(NSString*)ast.userData]];
+            [implementationFile appendString:[NSString stringWithFormat:@"\tCCSprite* baumkrone%d = [CCSprite spriteWithSpriteFrameName:@\"%@\"];\n",itemCounter,(NSString*)ast.userData]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tbaumkrone%d.position = ccp(%f, %f);\n",itemCounter,ast.position.x,ast.position.y]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tbaumkrone%d.scale = %f;\n",itemCounter,ast.scale]];
             [implementationFile appendString:[NSString stringWithFormat:@"\tbaumkrone%d.rotation = %f;\n",itemCounter,ast.rotation]];
